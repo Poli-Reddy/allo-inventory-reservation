@@ -13,6 +13,8 @@ type Warehouse = {
 
 type Stock = {
   id: string;
+  productId: string;
+  warehouseId: string;
   totalUnits: number;
   reservedUnits: number;
   warehouse: Warehouse;

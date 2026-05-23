@@ -2,6 +2,8 @@
 
 A highly concurrency-safe, real-time inventory reservation platform for multi-warehouse retail and D2C brands. Built with Next.js (App Router), TypeScript, Tailwind CSS, Prisma, and PostgreSQL (hosted on Supabase).
 
+Visit the live Application at [https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/](https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/)
+
 ## Core Problem Solved
 When shoppers enter checkout, payment processes take several minutes (UPI checks, bank redirects, cards). 
 - If stock is decremented at checkout completion: Two shoppers can pay for the same final SKU, causing overselling, refunds, and manual operations cleanup.

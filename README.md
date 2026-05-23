@@ -2,7 +2,7 @@
 
 A highly concurrency-safe, real-time inventory reservation platform for multi-warehouse retail and D2C brands. Built with Next.js (App Router), TypeScript, Tailwind CSS, Prisma, and PostgreSQL (hosted on Supabase).
 
-## Core Problem solved
+## Core Problem Solved
 When shoppers enter checkout, payment processes take several minutes (UPI checks, bank redirects, cards). 
 - If stock is decremented at checkout completion: Two shoppers can pay for the same final SKU, causing overselling, refunds, and manual operations cleanup.
 - If stock is decremented at add-to-cart: Carts are often abandoned, depleting virtual inventory and tanking conversion.
@@ -17,6 +17,11 @@ When shoppers enter checkout, payment processes take several minutes (UPI checks
 
 ---
 
+## Architecture Diagram
+![Architecture Diagram](./architecture.png)
+
+---
+
 ## How to Run Locally
 
 ### Prerequisites
@@ -25,7 +30,7 @@ When shoppers enter checkout, payment processes take several minutes (UPI checks
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/allo-inventory-reservation.git
+git clone https://github.com/Poli-Reddy/allo-inventory-reservation.git
 cd allo-inventory-reservation
 ```
 
@@ -37,7 +42,7 @@ npm install
 ### 3. Configure Environment Variables
 Create a `.env` file in the root directory and specify your PostgreSQL database connection URI:
 ```env
-DATABASE_URL="postgresql://postgres.[PASSWORD]@db.[PROJECT_REF].supabase.co:5432/postgres?schema=public"
+DATABASE_URL="postgresql://postgres.[USER].[PROJECT_REF]:[PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres?sslmode=require&connection_limit=15&pool_timeout=45"
 ```
 
 ### 4. Run Database Migrations
@@ -90,18 +95,3 @@ To verify the robustness of our concurrency-safe row-level locking:
 - **Choice:** Standard SSE transform-stream is used to stream live updates to catalog page grids.
 - **Why:** Lightweight and built natively into standard browser APIs without necessitating WebSockets packages or complex socket servers.
 - **Trade-off:** Our SSE endpoint polls the database every 1.5 seconds to query stock levels. For production scaling, integrating this with database change notification triggers (e.g., PostgreSQL `LISTEN`/`NOTIFY` or Prisma middleware pub/sub) would remove database polling entirely.
-
----
-
-## Architecture Diagram
-```
-  [Frontend: Next.js Page] <--- SSE Stock Stream --- [SSE API Endpoint]
-            |                                               |
-     POST Reservation                                 Polls (1.5s)
-            |                                               |
-            v                                               v
-[Reservations API Route] -- SELECT ... FOR UPDATE --> [PostgreSQL DB]
-```
-
-## Demo Video
-[Loom Video Placeholder](https://www.loom.com/share/placeholder) (optional)

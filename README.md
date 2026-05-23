@@ -61,13 +61,13 @@ npx prisma db seed
 ```bash
 npm run dev
 ```
-Open [https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/](https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/) to view the application.
+Open [http://localhost:3000/](http://localhost:3000/) to view the application.
 
 ---
 
 ## Concurrency Race-Condition Testing
 To verify the robustness of our concurrency-safe row-level locking:
-1. Make sure your local server is running at [https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/](https://allo-inventory-reservation-c71ugtsdq-nothingbeats.vercel.app/).
+1. Make sure your local server is running at [http://localhost:3000/](http://localhost:3000/).
 2. Open a separate terminal and run the concurrency verification script:
    ```bash
    npx tsx scripts/test-concurrency.ts
